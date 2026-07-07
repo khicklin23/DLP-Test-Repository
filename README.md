@@ -43,7 +43,7 @@ meant to exercise.
 ```
 documents/
   01-healthcare-hipaa/        Synthetic PHI: patient records, lab results, claims
-  02-financial-pci/           Synthetic cardholder data, wire transfers, payment profiles
+  02-financial-pci/           Synthetic cardholder data, wire transfers, payment profiles, emailed dispute w/ attachment
   03-pii-personal-data/       Synthetic employee/customer PII (SSNs, DOB, addresses)
   04-credentials-secrets/     Fake API keys, DB connection strings, private keys
   05-source-code-ip/          Fake ~500-line proprietary codebase for source-code DLP
@@ -51,22 +51,28 @@ documents/
   07-export-control-itar/     Fake export-controlled technical data document
   08-ai-llm-mcp-security/     Fake AI-chat leakage, MCP server config w/ secrets
   09-bulk-data-exports/       "Master database" CSV mixing every data type at volume
+  10-gdpr-eu-personal-data/   EU DSAR response, Article 9 special-category data, EU customer xlsx export
+  11-insider-threat-offboarding/ Departing-employee exfiltration scenario (resignation → bulk export → audit log)
+  12-cicd-cloud-secrets/      CI/CD & IaC configs with embedded cloud credentials (GitHub Actions, Terraform, kubeconfig)
+  13-collaboration-chat-exports/ Slack/Teams-style exports with sensitive data shared informally
 scripts/
   gen_docx.py                 Stdlib-only .docx generator used to build Word fixtures
+  gen_xlsx.py                  Stdlib-only .xlsx generator used to build spreadsheet fixtures
+  build_*.py                   One script per category that generates its binary fixtures
 ```
 
 Each category folder generally contains the **same content in multiple
-formats** (Markdown and `.docx`, sometimes `.json`/`.csv`/`.py`) since real
-exfiltration doesn't only happen in one file type, and different DLP content
-inspectors (regex, exact-data-match, fingerprinting) behave differently
-depending on format/encoding.
+formats** (Markdown, `.docx`/`.xlsx`, `.json`/`.csv`/`.yaml`/`.eml`/`.py`)
+since real exfiltration doesn't only happen in one file type, and different
+DLP content inspectors (regex, exact-data-match, fingerprinting) behave
+differently depending on format/encoding.
 
 ## Categories
 
 | # | Category | What it tests |
 |---|----------|----------------|
 | 01 | Healthcare / HIPAA | PHI detectors: patient name+diagnosis+MRN combos, insurance claims |
-| 02 | Financial / PCI-DSS | Cardholder data detectors: PAN + CVV + expiry, bank/ACH details |
+| 02 | Financial / PCI-DSS | Cardholder data detectors: PAN + CVV + expiry, bank/ACH details, emailed attachments |
 | 03 | PII / Personal Data | SSN, DOB, address, phone/email bulk PII |
 | 04 | Credentials & Secrets | API keys, DB connection strings, private keys in plaintext files |
 | 05 | Source Code / IP | Large proprietary-looking codebase for source-code fingerprinting |
@@ -74,6 +80,10 @@ depending on format/encoding.
 | 07 | Export Control / ITAR | Controlled technical data markings (ITAR/EAR-style) |
 | 08 | AI/LLM & MCP Security | Prompts/chat logs leaking secrets to an AI API, MCP config w/ credentials |
 | 09 | Bulk Data Exports | A single large "master database" file mixing all the above at scale |
+| 10 | GDPR / EU Personal Data | Article 9 special-category data, DSAR responses, cross-border EU PII |
+| 11 | Insider Threat / Offboarding | Correlated exfiltration signals around a departing employee |
+| 12 | CI/CD & Cloud Secrets | Hardcoded cloud credentials in pipeline/IaC/kubeconfig files |
+| 13 | Collaboration Chat Exports | PHI/PCI/financial data shared informally in Slack/Teams |
 
 ## Synthetic Data Conventions
 

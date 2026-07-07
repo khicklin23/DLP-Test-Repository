@@ -1,0 +1,50 @@
+{
+  "_notice": "SYNTHETIC TEST DATA. All users, messages, and data below are fictional, formatted to mimic a real Slack channel export (conversations.history API shape). Generated for Netskope One DLP testing of sensitive data shared in internal collaboration tools.",
+  "channel": "#finance-ops",
+  "channel_id": "C0000FINOPS",
+  "export_date": "2026-02-05",
+  "messages": [
+    {
+      "type": "message",
+      "user": "U001CBAPTISTE",
+      "username": "corinne.baptiste",
+      "ts": "1738713600.000100",
+      "text": "Hey team, wiring the Fujimoto Precision Tools payment today. Their bank details: Beneficiary Fujimoto Precision Tools KK, Acct 000998877665, SWIFT FUJPJPJT. Sending $342,900.00 per PO TL-4471."
+    },
+    {
+      "type": "message",
+      "user": "U002MILUNDU",
+      "username": "marcus.ilundu",
+      "ts": "1738713660.000200",
+      "text": "Got it, confirming from our end - originator account 000778812234, routing 000123456. Dual sign-off needed since it's over $100k, looping in @corinne.baptiste for second approval."
+    },
+    {
+      "type": "message",
+      "user": "U001CBAPTISTE",
+      "username": "corinne.baptiste",
+      "ts": "1738713720.000300",
+      "text": "Approved. Also heads up - payroll run PR-2026-02 total is $1,204,558.22 for 214 employees, that's a big jump from last cycle, can someone sanity check before it goes out ACH tomorrow?"
+    },
+    {
+      "type": "message",
+      "user": "U003NFERREIRA",
+      "username": "nadia.ferreira",
+      "ts": "1738717320.000400",
+      "text": "Quick one - customer called in asking to update the card on file, can someone in payments pull up CUST-10021? Old card ending 1111, new one is 5555 5555 5555 4444 exp 11/27. I don't have access to update it myself."
+    },
+    {
+      "type": "message",
+      "user": "U004MMARSH",
+      "username": "colton.marsh",
+      "ts": "1738717380.000500",
+      "text": "Updated in the system. For anyone else needing to do this - don't paste full card numbers in Slack, use the tokenized update link in the payments tool instead! (I know, I just did the same thing above blocking myself out :sweat_smile:)"
+    },
+    {
+      "type": "message",
+      "user": "U002MILUNDU",
+      "username": "marcus.ilundu",
+      "ts": "1738720920.000600",
+      "text": "Reminder that #finance-ops history is exported quarterly for SOX audit retention - please don't share anything here you wouldn't want sitting in a searchable export for 7 years."
+    }
+  ]
+}

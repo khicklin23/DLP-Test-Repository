@@ -50,16 +50,34 @@ documents/
   09-bulk-data-exports/        master_sensitive_records.csv — 250-row synthetic
                                 "master database" mixing every data class above
                                 into one bulk export (good EDM/fingerprinting fixture)
+  10-gdpr-eu-personal-data/    DSAR response (md), Art.9 special-category HR
+                                register (md), EU customer export (xlsx, via
+                                gen_xlsx.py)
+  11-insider-threat-offboarding/ Resignation letter (md) + offboarding security
+                                review (md) + bulk-download-audit-log.csv tying
+                                together a departing employee's CRM export,
+                                git clone/personal-remote push, and Drive/USB
+                                exfil in one correlated timeline
+  12-cicd-cloud-secrets/       GitHub Actions workflow (yml), Terraform .tfvars,
+                                kubeconfig (yaml) — all with hardcoded fake
+                                cloud credentials
+  13-collaboration-chat-exports/ Slack channel export (json, conversations.history
+                                shape) + Teams chat export (md) — PCI/PHI shared
+                                informally in chat
 scripts/
   gen_docx.py                  Stdlib-only (zipfile + hand-built OOXML) .docx
                                 generator — no pip/pandoc available in this sandbox,
                                 so this is how all .docx fixtures are made.
-  build_healthcare_docx.py     Each build_*.py script generates one category's docx
-  build_financial_docx.py      files by importing gen_docx.make_docx(path, content).
-  build_pii_docx.py            Re-run any of these to regenerate that category's
-  build_legal_docx.py          docx fixture(s) if you edit the content list inside.
-  build_master_database.py     Generates documents/09-bulk-data-exports/*.csv
-                                (seeded/deterministic — see its docstring)
+  gen_xlsx.py                  Same approach for .xlsx (single worksheet, inline
+                                strings, no sharedStrings.xml needed)
+  build_healthcare_docx.py     Each build_*.py script generates one category's
+  build_financial_docx.py      binary fixture(s) by importing gen_docx.make_docx()
+  build_pii_docx.py            or gen_xlsx.make_xlsx(). Re-run any of these to
+  build_legal_docx.py          regenerate that category's fixture if you edit
+  build_master_database.py     the content list/rows inside.
+  build_gdpr_xlsx.py
+  build_email_fixture.py       Builds the .eml fixture via stdlib `email` package
+                                (multipart/mixed with a CSV attachment)
 ```
 
 ## Synthetic data conventions (already established — keep following these)
@@ -112,14 +130,30 @@ scripts/
   pip/pandoc, it's fine to keep using `gen_docx.py` anyway for consistency,
   or switch to `python-docx`/pandoc if richer formatting is needed.
 
+### 2026-07-06 — Second pass: 4 more categories, xlsx generator, email fixture
+
+- Added categories 10-13: GDPR/EU personal data, insider-threat/offboarding,
+  CI/CD & cloud secrets, collaboration chat exports (see layout above).
+- Built `scripts/gen_xlsx.py` (stdlib-only, same rationale as `gen_docx.py`)
+  and used it for `10-gdpr-eu-personal-data/eu-customer-database-export.xlsx`.
+- Built `scripts/build_email_fixture.py` using stdlib `email` package —
+  produces `02-financial-pci/customer-refund-request-with-attachment.eml`,
+  a multipart email with a CSV cardholder-data attachment.
+- Updated `README.md` category table/structure to include 10-13.
+- Committed and pushed to `origin/main` (first push required walking through
+  GitHub secret-scanning push-protection "allow secret" flow for the fake
+  Stripe key / Slack token in `04-credentials-secrets` and
+  `08-ai-llm-mcp-security` — expected, since those files exist specifically
+  to look like real leaked secrets. If adding more fake-secret-bearing files
+  in future sessions, expect the same GitHub push-protection prompt and that
+  the repo owner will need to click "allow" via the URL GitHub returns.)
+- **Still not done**: none of the "policy test matrix" / results-tracking
+  ideas below have been started.
+
 ## Ideas for what's next (not started — pick from these or propose new ones)
 
-- Additional categories: GDPR/EU personal data, insider-threat/resignation
-  scenarios, source-code diffs (before/after a secret was added), CI/CD
-  pipeline configs with cloud credentials, Slack/Teams export with mixed
-  sensitive content.
-- More file formats: `.xlsx` (would need the same stdlib-OOXML treatment as
-  `gen_docx.py`), `.pdf`, `.eml` (email with attachment), `.pptx`.
+- More categories: source-code diffs (before/after a secret was added).
+- More file formats: `.pdf`, `.pptx`.
 - A scripted "policy test matrix" doc mapping each fixture file to the
   specific Netskope One policy/rule it's meant to trigger, plus expected
   verdict (block/alert/allow), so this becomes a real regression suite

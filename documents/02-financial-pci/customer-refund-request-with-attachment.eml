@@ -1,0 +1,44 @@
+Subject: RE: Refund request - TXN-88214 dispute (customer callback)
+From: Nadia Ferreira <nadia.ferreira@example.com>
+To: Colton Marsh <colton.marsh@example.com>
+Cc: finance-disputes@example.com
+Date: Wed, 04 Feb 2026 15:22:10 -0500
+Message-ID: <CAExample00000000000000000000000@mail.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============8028747792281652405=="
+
+--===============8028747792281652405==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Colton,
+
+Following up on the refund request for the batch we closed out last week -
+customer is disputing TXN-88214 (Mastercard ending 4444, $212.50). I've
+pulled the relevant rows from the settlement export into the attached CSV so
+Finance can process the reversal without needing system access.
+
+Let me know once it's processed and I'll close the ticket.
+
+Thanks,
+Nadia
+
+--
+SYNTHETIC TEST DATA. This email and its attachment are fabricated for
+Netskope One DLP testing (email + attachment exfiltration of cardholder
+data). No real customer, transaction, or account is represented.
+
+--===============8028747792281652405==
+Content-Type: text/csv
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="dispute_txn_88214_cardholder_detail.csv"
+MIME-Version: 1.0
+
+dHhuX2lkLGNhcmRob2xkZXJfbmFtZSxwYW4sZXhwLGNhcmRfdHlwZSxhbW91bnQsZGlzcHV0ZV9y
+ZWFzb24KVFhOLTg4MjE0LENvbHRvbiBNYXJzaCw1NTU1IDU1NTUgNTU1NSA0NDQ0LDExLzI3LE1h
+c3RlcmNhcmQsMjEyLjUwLGN1c3RvbWVyIHN0YXRlcyBjaGFyZ2Ugbm90IHJlY29nbml6ZWQKVFhO
+LTg4MjEzLE5hZGlhIEZlcnJlaXJhLDQxMTEgMTExMSAxMTExIDExMTEsMDkvMjgsVmlzYSw4NC4y
+MCxyZWxhdGVkIHB1cmNoYXNlIHNhbWUgb3JkZXIK
+
+--===============8028747792281652405==--

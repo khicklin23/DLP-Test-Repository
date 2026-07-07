@@ -1,0 +1,61 @@
+# SYNTHETIC TEST DATA. All credentials/hosts below are fake and inert.
+# Generated for Netskope One DLP testing of CI/CD pipeline configs that
+# embed cloud credentials directly instead of using a secrets manager.
+#
+# This simulates a common real-world mistake: hardcoding secrets in a
+# workflow file instead of referencing ${{ secrets.X }}, then having that
+# file copied/shared/pasted somewhere it shouldn't be (support ticket,
+# personal repo, AI chat asking "why is my deploy failing").
+
+name: deploy-wayfinder-pricing-engine
+
+on:
+  push:
+    branches: [main]
+
+env:
+  AWS_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
+  AWS_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  AWS_DEFAULT_REGION: us-east-2
+  DOCKER_REGISTRY_TOKEN: dckr_pat_00000000000000000000000000EXAMPLE
+  DATABASE_URL: postgresql://svc_app_prod:Tr0ub4dor%263-Prod-2026%21@prod-db-01.internal.lakesideoutfitters.corp:5432/wayfinder_prod
+  SLACK_DEPLOY_WEBHOOK: https://hooks.slack.com/services/T00000000/B00000000/EXAMPLEexampleexample00
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+
+      - name: Build container image
+        run: docker build -t wayfinder-pricing-engine:${{ github.sha }} .
+
+      - name: Push to registry
+        run: |
+          echo "$DOCKER_REGISTRY_TOKEN" | docker login registry.internal.lakesideoutfitters.corp -u ci-bot --password-stdin
+          docker push registry.internal.lakesideoutfitters.corp/wayfinder-pricing-engine:${{ github.sha }}
+
+      - name: Run DB migrations
+        run: |
+          psql "$DATABASE_URL" -f migrations/latest.sql
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service --cluster wayfinder-prod --service pricing-engine --force-new-deployment
+
+      - name: Notify Slack
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"Deployed wayfinder-pricing-engine ${{ github.sha }} to prod"}' \
+            "$SLACK_DEPLOY_WEBHOOK"
+
+# --------------------------------------------------------------------------
+# Synthetic fixture — DLP testing only. In a real pipeline these values
+# would be ${{ secrets.AWS_ACCESS_KEY_ID }} etc., pulled from GitHub Actions
+# encrypted secrets or a secrets manager — never hardcoded like this.
+# --------------------------------------------------------------------------

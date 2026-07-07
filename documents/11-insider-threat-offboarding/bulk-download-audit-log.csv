@@ -1,0 +1,12 @@
+timestamp,user_email,action,system,object,volume,destination,sanctioned_destination,risk_score
+2026-01-15T09:12:03Z,renata.okafor@example.com,login,Okta,-,-,corporate_network,true,5
+2026-01-20T16:44:11Z,renata.okafor@example.com,submit_resignation,Workday,resignation_letter,1,HR system,true,5
+2026-01-22T11:03:47Z,renata.okafor@example.com,bulk_export,CRM,customer-contact-database,2140 records,local download,true,72
+2026-01-22T11:05:02Z,renata.okafor@example.com,file_open,Endpoint,customer_export_final.csv,1 file,local disk,true,40
+2026-01-24T14:20:55Z,renata.okafor@example.com,git_clone,GitHub Enterprise,wayfinder-pricing-engine,1 repo (515 files-equiv),corporate laptop,true,68
+2026-01-24T14:26:19Z,renata.okafor@example.com,git_remote_add,GitHub Enterprise,wayfinder-pricing-engine,-,personal-github-remote,false,91
+2026-01-27T19:02:33Z,renata.okafor@example.com,upload,Chrome/Google Drive,customer_export_final.csv,340MB,personal Google Drive tenant,false,88
+2026-01-27T19:04:10Z,renata.okafor@example.com,upload,Chrome/Google Drive,wayfinder-pricing-engine.zip,4.2MB,personal Google Drive tenant,false,93
+2026-01-29T08:44:02Z,renata.okafor@example.com,usb_write,Endpoint,customer_export_final.csv,1 file,USB mass storage device,false,85
+2026-01-30T10:15:00Z,marcus.ilundu@example.com,dlp_alert_review,Netskope One,multiple objects above,-,-,true,-
+2026-02-06T17:00:00Z,marcus.ilundu@example.com,access_revoked,Okta,renata.okafor@example.com,all sessions,-,true,-
