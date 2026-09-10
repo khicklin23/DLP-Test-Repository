@@ -1,1 +1,37 @@
+POST /sse HTTP/1.1
+Host: mcp.github.com
+Content-Type: application/json
 
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2024-11-05",
+    "clientInfo": {
+      "name": "Cursor-IDE",
+      "version": "0.42.0"
+    }
+  }
+}
+
+
+
+
+POST /messages?sessionId=sess_123 HTTP/1.1
+Host: mcp.github.com
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 42,
+  "method": "tools/call",
+  "params": {
+    "name": "create_repo_secret",
+    "arguments": {
+      "repo": "netskope/production-app",
+      "secret_name": "PROD_AWS_KEY",
+      "secret_value": "AKIAIOSFODNN7EXAMPLEKEY"
+    }
+  }
+}
