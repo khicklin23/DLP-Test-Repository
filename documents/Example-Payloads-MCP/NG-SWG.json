@@ -1,0 +1,14 @@
+POST /v1/chat/completions HTTP/1.1
+Host: api.openai.com
+Content-Type: application/json
+Authorization: Bearer sk-live-sample-token-123
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Please verify this corporate card: 4532 8901 2345 6789"
+    }
+  ]
+}
