@@ -1,7 +1,7 @@
 # DLP Test Repository
 
 This repository is a **controlled test fixture set** for evaluating and tuning
-the **Netskope One** security platform (and DLP/CASB tooling generally). Every
+the **various dlp engines**. Every
 file in here containing "sensitive" data — SSNs, credit card numbers, patient
 records, API keys, source code, etc. — is **entirely synthetic**. Nothing in
 this repo identifies a real person, a real account, or a real system. See
