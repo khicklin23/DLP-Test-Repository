@@ -11,8 +11,7 @@ matching the formats/patterns real DLP engines look for.
 
 ## Purpose
 
-Netskope One (and DLP platforms like it) inspect traffic and content across a
-lot of different vectors: web uploads/downloads, email, endpoint file activity,
+Engines tat inspect traffic and content across alot of different vectors: web uploads/downloads, email, endpoint file activity,
 cloud app sync (OneDrive/Google Drive/Slack/etc.), git operations, and —
 increasingly — traffic to AI/LLM services and MCP (Model Context Protocol)
 tool calls. This repo exists to give those policies real content to react to,
